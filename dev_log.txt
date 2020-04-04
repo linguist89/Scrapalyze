@@ -1,0 +1,20 @@
+01/04/2020
+Created the function scrape_selenium_element.
+1) Launches a webdriver.
+2) Finds an input box.
+3) Sends keys to input box.
+4) Scrapes the page and returns a soup of that page.
+
+02/04/2020
+Changed function scrape_selenium_element to scrape_selenium_css
+1) CSS_selector is a better navigation tool compared to element_name
+
+Added "action_type" as an argument.
+1) Allows user to choose between "search" or "click_link"
+2) This enables the user to remotely click a link or populate a search bar.
+
+03/04/2020
+Added the headless True/False **kwargs to the scrape_selenium_css function.
+
+04/04/2020
+Created the class "Scrapalyze" which contains as methods all the previously made functions.
