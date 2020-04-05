@@ -18,3 +18,7 @@ Added the headless True/False **kwargs to the scrape_selenium_css function.
 
 04/04/2020
 Created the class "Scrapalyze" which contains as methods all the previously made functions.
+
+05/04/2020
+Changed the find to findAll in find_by_element.
+Specified in Docstring that results will be contained in a list.

@@ -9,9 +9,10 @@ class Scrapalyze():
         self.url = url
         
     # Single scrape of a website, but also enables element-level and attribute-level search
-    def scrape_element(self, **kwargs):
+    def scrape_by_element(self, **kwargs):
         """
         Scrapes website self.url and returns a parsed HTML document.
+        The results will be contained in a list.
 
         **kwargs:    
         element: change to whichever element you are searching for in the soup.
@@ -34,21 +35,21 @@ class Scrapalyze():
         # Returns as default
         if kwargs['element']:
             if kwargs['attribute_type']:
-                find_object = soup.find(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
+                find_object = soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
                 return find_object
             else:
-                find_object = soup.find(kwargs['element'])
+                find_object = soup.findAll(kwargs['element'])
                 return find_object
         else:
             return soup
 
 
     # Single scrape of a website through using xpath
-    def scrape_css_selector(self, **kwargs):
+    def scrape_by_css(self, **kwargs):
         """
         Scrapes website self.url and returns a parsed HTML document.
         The search is done through css selector as opposed to the single_scrape which
-        searches by using elements and attributes.
+        searches by using elements and attributes. The results will be contained in a list.
 
         **kwargs:  
         css_selector: change to whichever object you are searching for.
@@ -77,7 +78,7 @@ class Scrapalyze():
         """
         Scrapes self.url and returns all the links on that website.
         Keyword arguments can be passed to specify which part of the website should be scraped
-        for urls.
+        for urls. The results will be contained in a list.
 
         **kwargs:
         element: change to whichever element you are searching for in the soup.
@@ -118,6 +119,7 @@ class Scrapalyze():
         """
         Creates a webdriver, navigates to self.url, finds element by css_selector and
         passes key as an argument to the send_keys function. Returns the resulting page as a soup.
+        The results will be contained in a list.
         **kwargs:
         css_selector: default is empty string
 
