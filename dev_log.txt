@@ -22,3 +22,7 @@ Created the class "Scrapalyze" which contains as methods all the previously made
 05/04/2020
 Changed the find to findAll in find_by_element.
 Specified in Docstring that results will be contained in a list.
+
+06/04/2020
+Added the get_tag_list method
+1) Generates a list of HTML tags that are useful when looking for elements to scrape.

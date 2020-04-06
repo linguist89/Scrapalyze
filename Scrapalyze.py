@@ -8,6 +8,25 @@ class Scrapalyze():
     def __init__(self, url):
         self.url = url
         
+    # Get a list of the documents HTML tags
+    def get_tag_list(self):
+        """
+        Create a list of tags from all the unique tags in the document.
+        This is useful for navigation purpose and getting an overview of what tags are in the document.
+        """
+        # Get the soup
+        response = requests.get(self.url)
+        soup = bs(response.text, 'lxml')
+        
+        # Creates a list of all the tags in the HTML, sorts them and outputs the resutling list.
+        page_list = list(soup.descendants)
+        self.tag_list = []
+        for token in page_list:
+            if not isinstance(token, str):
+                self.tag_list.append(token.name)
+        self.tag_list = sorted(list(set(tag_list)))
+        return self.tag_list
+        
     # Single scrape of a website, but also enables element-level and attribute-level search
     def scrape_by_element(self, **kwargs):
         """
@@ -156,7 +175,7 @@ class Scrapalyze():
             elem.click()
 
         # Creates a soup of the page and returns the whole soup
-        page_soup = bs(driver.page_source, 'html.parser')
+        page_soup = bs(driver.page_source, 'lxml')
 
         driver.close()
 
