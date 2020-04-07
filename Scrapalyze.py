@@ -15,7 +15,8 @@ class Scrapalyze():
         This is useful for navigation purpose and getting an overview of what tags are in the document.
         """
         # Get the soup
-        response = requests.get(self.url)
+        agent = {"User-Agent":"Mozilla/5.0"}
+        response = requests.get(self.url, headers=agent)
         soup = bs(response.text, 'lxml')
         
         # Creates a list of all the tags in the HTML, sorts them and outputs the resutling list.
@@ -24,7 +25,7 @@ class Scrapalyze():
         for token in page_list:
             if not isinstance(token, str):
                 self.tag_list.append(token.name)
-        self.tag_list = sorted(list(set(tag_list)))
+        self.tag_list = sorted(list(set(self.tag_list)))
         return self.tag_list
         
     # Single scrape of a website, but also enables element-level and attribute-level search
@@ -42,7 +43,8 @@ class Scrapalyze():
 
         """
         # Get the soup
-        response = requests.get(self.url)
+        agent = {"User-Agent":"Mozilla/5.0"}
+        response = requests.get(self.url, headers=agent)
         soup = bs(response.text, 'lxml')
 
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
@@ -74,7 +76,8 @@ class Scrapalyze():
         css_selector: change to whichever object you are searching for.
         """
         # Get the soup
-        response = requests.get(self.url)
+        agent = {"User-Agent":"Mozilla/5.0"}
+        response = requests.get(self.url, headers=agent)
         soup = bs(response.text, 'lxml')
 
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
@@ -107,7 +110,8 @@ class Scrapalyze():
         attribute_content: change to whichever attribute_content you are searching for in the soup.
         """
         # Get soup
-        response = requests.get(self.url)
+        agent = {"User-Agent":"Mozilla/5.0"}
+        response = requests.get(self.url, headers=agent)
         soup = bs(response.text, 'lxml')
 
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)

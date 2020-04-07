@@ -26,3 +26,7 @@ Specified in Docstring that results will be contained in a list.
 06/04/2020
 Added the get_tag_list method
 1) Generates a list of HTML tags that are useful when looking for elements to scrape.
+
+07/04/2020
+Added "agent" to specify headers arg when performing a request
+1) This bypasses the website's "permission denied" response.
