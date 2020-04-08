@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as bs
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options   
+from selenium.webdriver.chrome.options import Options  
 
 class Scrapalyze():
     def __init__(self, url):
@@ -180,7 +180,13 @@ class Scrapalyze():
 
         # Creates a soup of the page and returns the whole soup
         page_soup = bs(driver.page_source, 'lxml')
-
         driver.close()
-
         return page_soup
+    
+    # Cleans a string
+    def scrapalyze_clean(self, text_string):
+        
+        # Removes all newlines and replaces double spaces with single spaces
+        clean_string = text_string.replace("\n","").replace("  ", " ")
+        
+        return clean_string

@@ -30,3 +30,8 @@ Added the get_tag_list method
 07/04/2020
 Added "agent" to specify headers arg when performing a request
 1) This bypasses the website's "permission denied" response.
+
+08/04/2020
+Added scrapalyze_clean method
+1) Removes newlines
+2) Replaces double spaces with single spaces
