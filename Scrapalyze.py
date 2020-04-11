@@ -3,8 +3,9 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options  
+from Scrap import Scrap
 
-class Scrapalyze():
+class Scrapalyze:
     def __init__(self, url):
         self.url = url
         
@@ -51,16 +52,17 @@ class Scrapalyze():
         kwargs.setdefault('element',"")
         kwargs.setdefault('attribute_type',"")
         kwargs.setdefault('attribute_content',"")
+            
 
         # Options to search for a specific element with or without attributes specificed
         # Returns as default
         if kwargs['element']:
             if kwargs['attribute_type']:
                 find_object = soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
-                return find_object
+                return Scrap(find_object)
             else:
                 find_object = soup.findAll(kwargs['element'])
-                return find_object
+                return Scrap(find_object)
         else:
             return soup
 
@@ -182,11 +184,3 @@ class Scrapalyze():
         page_soup = bs(driver.page_source, 'lxml')
         driver.close()
         return page_soup
-    
-    # Cleans a string
-    def scrapalyze_clean(self, text_string):
-        
-        # Removes all newlines and replaces double spaces with single spaces
-        clean_string = text_string.replace("\n","").replace("  ", " ")
-        
-        return clean_string
