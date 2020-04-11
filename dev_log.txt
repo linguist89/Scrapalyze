@@ -35,3 +35,8 @@ Added "agent" to specify headers arg when performing a request
 Added scrapalyze_clean method
 1) Removes newlines
 2) Replaces double spaces with single spaces
+
+11/04/2020
+Created Scrap class
+1) Every method in Scrapalyze will return a Scrap class object.
+2) These objects will have separate internal methods for formatting.
