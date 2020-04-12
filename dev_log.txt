@@ -40,3 +40,11 @@ Added scrapalyze_clean method
 Created Scrap class
 1) Every method in Scrapalyze will return a Scrap class object.
 2) These objects will have separate internal methods for formatting.
+
+12/04/2020
+1) Create a stats method for the Scrap class
+    a) This will display need to know information to make using Scraps easier.
+2) Changed the init to only have scrap_list as the input from Scrapalyze
+    a) This will make it easier to navigate when the module becomes more complex.
+3) Added self.get_tag_list() to init
+    a) This will call the method when the class is instantiated, giving the user a list of tags available in the soup.

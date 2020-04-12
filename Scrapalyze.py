@@ -3,11 +3,11 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options  
-from Scrap import Scrap
 
 class Scrapalyze:
     def __init__(self, url):
         self.url = url
+        self.get_tag_list()
         
     # Get a list of the documents HTML tags
     def get_tag_list(self):
