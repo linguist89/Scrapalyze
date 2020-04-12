@@ -3,6 +3,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options  
+import Scrap
 
 class Scrapalyze:
     def __init__(self, url):
@@ -59,10 +60,10 @@ class Scrapalyze:
         if kwargs['element']:
             if kwargs['attribute_type']:
                 find_object = soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
-                return Scrap(find_object)
+                return Scrap.Scrap(find_object)
             else:
                 find_object = soup.findAll(kwargs['element'])
-                return Scrap(find_object)
+                return Scrap.Scrap(find_object)
         else:
             return soup
 
