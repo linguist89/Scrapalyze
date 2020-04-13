@@ -8,27 +8,32 @@ import Scrap
 class Scrapalyze:
     def __init__(self, url):
         self.url = url
+        self.get_soup(url)
         self.get_tag_list()
+        
         
     # Get a list of the documents HTML tags
     def get_tag_list(self):
         """
         Create a list of tags from all the unique tags in the document.
         This is useful for navigation purpose and getting an overview of what tags are in the document.
-        """
-        # Get the soup
-        agent = {"User-Agent":"Mozilla/5.0"}
-        response = requests.get(self.url, headers=agent)
-        soup = bs(response.text, 'lxml')
-        
+        """        
         # Creates a list of all the tags in the HTML, sorts them and outputs the resutling list.
-        page_list = list(soup.descendants)
+        page_list = list(self.soup.descendants)
         self.tag_list = []
         for token in page_list:
             if not isinstance(token, str):
                 self.tag_list.append(token.name)
         self.tag_list = sorted(list(set(self.tag_list)))
         return self.tag_list
+    
+    # Create the soup
+    def get_soup(self, url):
+        # Get the soup
+        agent = {"User-Agent":"Mozilla/5.0"}
+        response = requests.get(url, headers=agent)
+        self.soup = bs(response.text, 'lxml')
+        
         
     # Single scrape of a website, but also enables element-level and attribute-level search
     def scrape_by_element(self, **kwargs):
@@ -44,11 +49,6 @@ class Scrapalyze:
         attribute_content: change to whichever attribute_content you are searching for in the soup.
 
         """
-        # Get the soup
-        agent = {"User-Agent":"Mozilla/5.0"}
-        response = requests.get(self.url, headers=agent)
-        soup = bs(response.text, 'lxml')
-
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
         kwargs.setdefault('element',"")
         kwargs.setdefault('attribute_type',"")
@@ -59,13 +59,13 @@ class Scrapalyze:
         # Returns as default
         if kwargs['element']:
             if kwargs['attribute_type']:
-                find_object = soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
+                find_object = self.soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
                 return Scrap.Scrap(find_object)
             else:
-                find_object = soup.findAll(kwargs['element'])
+                find_object = self.soup.findAll(kwargs['element'])
                 return Scrap.Scrap(find_object)
         else:
-            return soup
+            return self.soup
 
 
     # Single scrape of a website through using xpath
@@ -78,11 +78,6 @@ class Scrapalyze:
         **kwargs:  
         css_selector: change to whichever object you are searching for.
         """
-        # Get the soup
-        agent = {"User-Agent":"Mozilla/5.0"}
-        response = requests.get(self.url, headers=agent)
-        soup = bs(response.text, 'lxml')
-
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
         kwargs.setdefault('css_selector',"")
 
@@ -90,12 +85,12 @@ class Scrapalyze:
         # Find object based on css selector otherwise return soup
         if kwargs['css_selector']:
             try:
-                find_object = soup.select(kwargs['css_selector'])
+                find_object = self.soup.select(kwargs['css_selector'])
             except:
                 find_object = "Cannot find the object. Check your css_selector."
             return find_object
         else:
-            return soup
+            return self.soup
 
 
     # Scrape all the links from a page based upon specified criteria
@@ -112,11 +107,6 @@ class Scrapalyze:
 
         attribute_content: change to whichever attribute_content you are searching for in the soup.
         """
-        # Get soup
-        agent = {"User-Agent":"Mozilla/5.0"}
-        response = requests.get(self.url, headers=agent)
-        soup = bs(response.text, 'lxml')
-
         # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
         kwargs.setdefault('element',"")
         kwargs.setdefault('attribute_type',"")

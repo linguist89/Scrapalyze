@@ -48,3 +48,11 @@ Created Scrap class
     a) This will make it easier to navigate when the module becomes more complex.
 3) Added self.get_tag_list() to init
     a) This will call the method when the class is instantiated, giving the user a list of tags available in the soup.
+    
+13/04/2020
+1) Added get_soup function to Scrapalyze
+    a) This makes available the initial soup in Scrapalyze class at the moment it is instantiated.
+2) Added display function for Scrap class
+    a) Neatly displays each element in the scrap_list
+3) Added internal_tags property function for Scrap class
+    a) This will allow the user to see which element tags are available internally in the scraped element.
