@@ -56,3 +56,8 @@ Created Scrap class
     a) Neatly displays each element in the scrap_list
 3) Added internal_tags property function for Scrap class
     a) This will allow the user to see which element tags are available internally in the scraped element.
+    
+14/04/2020
+1) Added internal_scrape method to Scrap class
+    a) This allows the user to scrape based upon internal tags of a Scrap.
+    b) Outputs as a list with the element being the internal scrape or non if the scrap_list element didn't contain the internal_tag.

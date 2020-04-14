@@ -88,7 +88,7 @@ class Scrapalyze:
                 find_object = self.soup.select(kwargs['css_selector'])
             except:
                 find_object = "Cannot find the object. Check your css_selector."
-            return find_object
+            return Scrap.Scrap(find_object)
         else:
             return self.soup
 
