@@ -1,3 +1,5 @@
+import nltk
+
 # A Scrap is an object from a Scrapalyze method
 class Scrap:
     """
@@ -53,14 +55,21 @@ class Scrap:
         return iscrape
     
     # Removes a single newline character from the string
-    def clean(self, i=0, permanent=False):
-        """Prints the text of the element scraped with all newline characters removed.
-        Set permanent to True to make changes permanent to string.
-        Default is set to False."""
-        if permanent == True:
-            self.scrap_list[i].text = self.scrap_list[i].text.replace("\n","").strip() 
+    def clean(self, 
+              i=0,
+             remove_punct=False):
+        """
+        remove_punct: default False. If set to True, removes punctuation from the text of the scraped element. 
+        If set to false, ouputs only the text of the element without any formatting.
+        """
+        # Remove punctuation from scrap_list element's text
+        if remove_punct == True:
+            words = nltk.word_tokenize(self.scrap_list[i].text)
+            new_words = ' '.join([word for word in words if word.isalnum()])
+            return new_words
         else:
-            return self.scrap_list[i].text.replace("\n","").strip()
+            return self.scrap_list[i].text
+
         
     
     

@@ -61,3 +61,9 @@ Created Scrap class
 1) Added internal_scrape method to Scrap class
     a) This allows the user to scrape based upon internal tags of a Scrap.
     b) Outputs as a list with the element being the internal scrape or non if the scrap_list element didn't contain the internal_tag.
+
+15/04/2020
+1) Changed clean method in Scrap
+    a) No longer only removes newline characters.
+    b) Removes all punctuation from an element's body of text.
+    c) Removed permanent attribute from Scrap, so not it doesn't modify self.scrap_list.
