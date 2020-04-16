@@ -57,18 +57,30 @@ class Scrap:
     # Removes a single newline character from the string
     def clean(self, 
               i=0,
-             remove_punct=False):
+             remove_punct=False,
+             tokenize=False,
+             lower=False):
         """
         remove_punct: default False. If set to True, removes punctuation from the text of the scraped element. 
+        tokenize: default False. If set to True, returns the text as a list of tokens.
+        lower: default False. If set to True, returns the tokens all in lower case.
         If set to false, ouputs only the text of the element without any formatting.
         """
         # Remove punctuation from scrap_list element's text
         if remove_punct == True:
             words = nltk.word_tokenize(self.scrap_list[i].text)
-            new_words = ' '.join([word for word in words if word.isalnum()])
+            if tokenize == True:
+                if lower == True:
+                    new_words = [word.lower() for word in words if word.isalnum()]
+                else:                  
+                    new_words = [word for word in words if word.isalnum()]
+            else:
+                new_words = ' '.join([word for word in words if word.isalnum()])
             return new_words
         else:
             return self.scrap_list[i].text
+        
+        
 
         
     

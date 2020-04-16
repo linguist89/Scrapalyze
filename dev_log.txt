@@ -67,3 +67,6 @@ Created Scrap class
     a) No longer only removes newline characters.
     b) Removes all punctuation from an element's body of text.
     c) Removed permanent attribute from Scrap, so not it doesn't modify self.scrap_list.
+    
+16/04/2020
+1) Added tokenize and lower to clean method in Scrap
