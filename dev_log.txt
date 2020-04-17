@@ -70,3 +70,9 @@ Created Scrap class
     
 16/04/2020
 1) Added tokenize and lower to clean method in Scrap
+
+17/04/2020
+1) Changed display method to raw in Scrap
+2) Added internal scrape stats to Scrap's stats property
+3) Added lower case check in Scrap's clean method for non-tokenized output
+

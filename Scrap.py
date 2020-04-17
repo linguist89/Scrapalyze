@@ -9,6 +9,8 @@ class Scrap:
     # Initializes the scrap with the list scraped from the Scrapalyze class
     def __init__(self, scrap_list):
         self.scrap_list = scrap_list
+        self.internal_scrape_check = False
+        self.iscrape = []
     
     # Display standard statistics for the Scrap
     @property
@@ -16,10 +18,18 @@ class Scrap:
         """
         Stats is a property fuction that outputs statistics about the element you scraped.
         """
+        # Length of intial scrape_list
         print("The length of your scrap_list is: " + str(len(self.scrap_list)))
         
+        # Length of internal scrapes (if any)
+        if self.internal_scrape_check == True:
+            print("The length of your internal scrape is: " + str(len(self.iscrape)))
+        else:
+            print("There is not internal scrapes.")
+            
+        
     # Display the article as it was scraped
-    def display(self):
+    def raw(self):
         """
         Display prints each entry in the scrap_list.
         """
@@ -42,17 +52,19 @@ class Scrap:
         return tag_list
     
     # Scrape internally based upon internal tags
-    def internal_scrape(self, element):
+    def internal_scrape(self,
+                        element,
+                       i=0):
         """
         Scrape the internal elements from a scrap_list.
         This will ouput them as a list with each element of scrap_list returning either a result or none.
         Best used after looking at results of internal_tags.
         """
-        iscrape = []
+        self.internal_scrape_check = True
+        self.iscrape = []
         for scrap in self.scrap_list:
-            iscrape.append(scrap.find(element))
-        
-        return iscrape
+            self.iscrape.append(scrap.findAll(element))        
+        return self.iscrape[i]
     
     # Removes a single newline character from the string
     def clean(self, 
@@ -75,7 +87,10 @@ class Scrap:
                 else:                  
                     new_words = [word for word in words if word.isalnum()]
             else:
-                new_words = ' '.join([word for word in words if word.isalnum()])
+                if lower == True:
+                    new_words = ' '.join([word.lower() for word in words if word.isalnum()])
+                else:                  
+                    new_words = ' '.join([word for word in words if word.isalnum()])                
             return new_words
         else:
             return self.scrap_list[i].text
