@@ -23,11 +23,23 @@ class Scrap:
         
         # Length of internal scrapes (if any)
         if self.internal_scrape_check == True:
-            print("The length of your internal scrape is: " + str(len(self.iscrape)))
+            print("The number of internal scrapes are: " + str(len(list(self.iscrape[0].children))))
         else:
-            print("There is not internal scrapes.")
+            print("There is no internal scrapes.")
             
-        
+    @property
+    def internal_scrapes(self):
+        """
+        Property function to print the internal_scrapes.
+        """
+        internal_scrapes_list = []
+        if self.iscrape:
+            for scrape in self.iscrape[0]:
+                internal_scrapes_list.append(scrape)
+            return internal_scrapes_list
+        else:
+            print("There are no internal scrapes.")
+    
     # Display the article as it was scraped
     def raw(self):
         """
@@ -61,9 +73,8 @@ class Scrap:
         Best used after looking at results of internal_tags.
         """
         self.internal_scrape_check = True
-        self.iscrape = []
         for scrap in self.scrap_list:
-            self.iscrape.append(scrap.findAll(element))        
+            self.iscrape += scrap.findAll(element)    
         return self.iscrape[i]
     
     # Removes a single newline character from the string

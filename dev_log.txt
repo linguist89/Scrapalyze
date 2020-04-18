@@ -76,3 +76,8 @@ Created Scrap class
 2) Added internal scrape stats to Scrap's stats property
 3) Added lower case check in Scrap's clean method for non-tokenized output
 
+18/04/202
+1) Fixed self.iscrape variable in Scrap
+2) Added internal_scrapes count display to stats in Scrap
+3) Added new property method called internal_scrapes that saves internal scrapes
+
