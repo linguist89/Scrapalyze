@@ -31,26 +31,21 @@ sc = Scrapalyze.Scrapalyze("https://github.com/")
 tags = sc.tag_list  
 
 # Scrapalayze class object (Scrap)
-## Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap
-
-### In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
+### Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
 title = sc.scrape_by_element(element="title")  
-p = sc.scrape_by_element(element='p')  
+p = sc.scrape_by_element(element='p')   
 
-### Clean is one such method. This displays the text contained within the Scrap.
-The text in the Scrap is a list of type bs4.element (BeautifulSoup objects).  
-
-### This will print the text of the title without any formatting
+#This will print the text of the title of the website without any formatting
 print(title.clean())
 
-### The variable "p" is a list of all the "p" elements scraped from the site. 
-This removes the punctuation and prints the text of the first p element (i.e. p[0])  
+##### The variable "p" is a list of all the "p" elements scraped from the site. 
+#This removes the punctuation and prints the text of the first p element (i.e. p[0])  
 print(p.clean(remove_punct=True))
 
-This removes the punctuation, tokenizes the sentence and prints each word of the second p element (i.e. p[1])  
+#This removes the punctuation, tokenizes the sentence and prints each word of the second p element (i.e. p[1])  
 print(p.clean(i=2, remove_punct=True, tokenize=True))
 
-This removes the punctuation, makes all letters lowercase and prints the text of the third p element (i.e. p[2]) 
+#This removes the punctuation, makes all letters lowercase and prints the text of the third p element (i.e. p[2]) 
 print(p.clean(i=3, remove_punct=True, lower=True))
 
 
