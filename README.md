@@ -22,28 +22,28 @@ import Scrapalyze
 
 The base scrapalyze class will contain the raw HTML of the website along with methods that give the user the ability to scrape further information based upon element tags or navigation via webdrivers. 
 
-#### Example of a Scrapalyze class instantiation
+### Example of a Scrapalyze class instantiation
 
 sc = Scrapalyze.Scrapalyze("https://github.com/")
 
-#### You can view which element tags are available on the website which can be used for scraping by element 
+### You can view which element tags are available on the website which can be used for scraping by element 
 
-tags = sc.list  
+tags = sc.tag_list  
 
-## Scrapalayze class object (Scrap)
-#### Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap
+# Scrapalayze class object (Scrap)
+## Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap
 
-##### In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
+### In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
 title = sc.scrape_by_element(element="title")  
 p = sc.scrape_by_element(element='p')  
 
-##### Clean is one such method. This displays the text contained within the Scrap.
+### Clean is one such method. This displays the text contained within the Scrap.
 The text in the Scrap is a list of type bs4.element (BeautifulSoup objects).  
 
-##### This will print the text of the title without any formatting
+### This will print the text of the title without any formatting
 print(title.clean())
 
-##### The variable "p" is a list of all the "p" elements scraped from the site. 
+### The variable "p" is a list of all the "p" elements scraped from the site. 
 This removes the punctuation and prints the text of the first p element (i.e. p[0])  
 print(p.clean(remove_punct=True))
 
