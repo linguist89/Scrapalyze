@@ -33,7 +33,7 @@ tags = sc.tag_list
 # Scrapalayze class object (Scrap)
 ### Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
 
-## Create Scrap two scrap objects ("p" and "title")
+## Create two Scrap objects ("p" and "title")
 
 title = sc.scrape_by_element(element="title")  
 p = sc.scrape_by_element(element='p')   
