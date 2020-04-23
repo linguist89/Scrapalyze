@@ -31,27 +31,8 @@ sc = Scrapalyze.Scrapalyze("https://github.com/")
 tags = sc.tag_list  
 
 # Scrapalayze class object (Scrap)
-### Running a method such as scrape_by_element returns a Scrapalyze object called a Scrap In these two examples, the variables "title" and "p" are Scrap classes which contain their own internal methods
 
-## Create two Scrap objects ("p" and "title")
-
-title = sc.scrape_by_element(element="title")  
-p = sc.scrape_by_element(element='p')   
-
-
-## Print text of those objects
-
-#This will print the text of the title of the website without any formatting  
-print(title.clean())
-
-#This removes the punctuation and prints the text of the first p element (i.e. p[0])  
-print(p.clean(remove_punct=True))
-
-#This removes the punctuation, tokenizes the sentence and prints each word of the second p element (i.e. p[1])  
-print(p.clean(i=2, remove_punct=True, tokenize=True))
-
-#This removes the punctuation, makes all letters lowercase and prints the text of the third p element (i.e. p[2])  
-print(p.clean(i=3, remove_punct=True, lower=True))
+### The Scrap internal methods have been altered, but an updated README is coming soon...
 
 
 

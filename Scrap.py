@@ -7,10 +7,10 @@ class Scrap:
     """
     
     # Initializes the scrap with the list scraped from the Scrapalyze class
-    def __init__(self, scrap_list):
-        self.scrap_list = scrap_list
-        self.internal_scrape_check = False
-        self.iscrape = []
+    def __init__(self, contents):
+        self.contents = contents
+        self.scrape_embedded_elements()
+        self.num_layers = self.number_of_embedded_layers()
     
     # Display standard statistics for the Scrap
     @property
@@ -18,34 +18,19 @@ class Scrap:
         """
         Stats is a property fuction that outputs statistics about the element you scraped.
         """
-        # Length of intial scrape_list
-        print("The length of your scrap_list is: " + str(len(self.scrap_list)))
+        # Length of contents
+        print("Contents length is: {}".format(len(self.contents)))   
         
-        # Length of internal scrapes (if any)
-        if self.internal_scrape_check == True:
-            print("The number of internal scrapes are: " + str(len(list(self.iscrape[0].children))))
-        else:
-            print("There is no internal scrapes.")
-            
-    @property
-    def internal_scrapes(self):
-        """
-        Property function to print the internal_scrapes.
-        """
-        internal_scrapes_list = []
-        if self.iscrape:
-            for scrape in self.iscrape[0]:
-                internal_scrapes_list.append(scrape)
-            return internal_scrapes_list
-        else:
-            print("There are no internal scrapes.")
+        # Number of embedded layers
+        print("The number of embedded layers is: {}".format(self.num_layers))
+        
     
     # Display the article as it was scraped
     def raw(self):
         """
-        Display prints each entry in the scrap_list.
+        Display prints each entry in the contents.
         """
-        for entry in self.scrap_list:
+        for entry in self.contents:
             print(entry)
             
     # Display all the tags within the scraped tag
@@ -56,26 +41,96 @@ class Scrap:
         Use internal_scrape to further refine your scrapes.
         """
         tag_list = []
-        for element in self.scrap_list:
+        for element in self.contents:
             for token in element:
                 if not isinstance(token, str):
                     tag_list.append(token.name)
         tag_list = sorted(list(set(tag_list)))
         return tag_list
     
-    # Scrape internally based upon internal tags
-    def internal_scrape(self,
-                        element,
-                       i=0):
+    # Determine the number of layers embedded elements in the contents
+    def number_of_embedded_layers(self):
+        i = 1
+        end = 1
+        while i == end:
+            end = self.scrape_embedded_elements(layer=i)[2]
+            i += 1
+        return end
+            
+    # Scrap tags based upon their layers of embedding
+    def scrape_embedded_elements(self, 
+                                 layer = 1):
         """
-        Scrape the internal elements from a scrap_list.
-        This will ouput them as a list with each element of scrap_list returning either a result or none.
-        Best used after looking at results of internal_tags.
+        Iterates through the contents of the initiliazed list.
+        Extracts all embedded tags and element for easy internal navigation.
         """
-        self.internal_scrape_check = True
-        for scrap in self.scrap_list:
-            self.iscrape += scrap.findAll(element)    
-        return self.iscrape[i]
+        contents = self.contents
+        end = 1
+        for i in range(layer):
+            layer_tags = []
+            layer_elements = []
+            for element in contents:
+                if not isinstance(element, str):
+                    for child in list(element.children):
+                        layer_tags.append(child.name)
+                        layer_elements.append(child)
+                layer_tags = list(set(layer_tags))
+                later_elements = list(set(layer_elements))
+            contents = layer_elements
+            if contents != []:
+                end = i
+            else:
+                layer_elements = "There are no more layers"
+                layer_tags = "There are no more layers"
+        return layer_tags,layer_elements,end
+    
+    # Print the scraped embedded elements
+    def embedded_scrapes(self, 
+                         layer=1, 
+                         specify=[],
+                         tags_elements=1):
+        """
+        Returns the elements or tags of an embedded layer.
+        layer: default 1. Displays the first layer of elements. 
+        Each increment represents 1 layer i.e. 3 is the third layer of embedded elements.
+        specify: default empyt list. Add any HTML tags in the list to display only those elements.
+        tags_elements: default 1. Change to 0 if you want to return tags instead of full elements.
+        """        
+        scrape_results = []
+        if not isinstance(self.scrape_embedded_elements(layer=layer)[tags_elements], str):
+            for element in self.scrape_embedded_elements(layer=layer)[tags_elements]:
+                if specify != []:
+                    for s in specify:
+                        if element.name == s:
+                            scrape_results.append(element)
+                else:
+                    scrape_results.append(element)
+            return scrape_results
+        else:
+            return self.scrape_embedded_elements(layer=layer)[tags_elements]
+                                        
+        
+    
+    # Filter out any unwanted elements in the contents
+    def filter_contents(self,
+                        exclude=[],
+                       permanent=False):
+        """
+        This contains the contents of the initial scrape.
+        permanent: default False. Set to true to make the changes permanent.
+        """
+        if exclude:
+            for token in self.contents:
+                for child in token.children:
+                    for e in exclude:
+                        if child.name != e and child.name != None:
+                            print(child.name)
+                            print(e)
+                            print("========")
+        else:
+            return self.contents
+        
+            
     
     # Removes a single newline character from the string
     def clean(self, 
@@ -89,9 +144,9 @@ class Scrap:
         lower: default False. If set to True, returns the tokens all in lower case.
         If set to false, ouputs only the text of the element without any formatting.
         """
-        # Remove punctuation from scrap_list element's text
+        # Remove punctuation from contents element's text
         if remove_punct == True:
-            words = nltk.word_tokenize(self.scrap_list[i].text)
+            words = nltk.word_tokenize(self.contents[i].text)
             if tokenize == True:
                 if lower == True:
                     new_words = [word.lower() for word in words if word.isalnum()]
@@ -104,7 +159,7 @@ class Scrap:
                     new_words = ' '.join([word for word in words if word.isalnum()])                
             return new_words
         else:
-            return self.scrap_list[i].text
+            return self.contents[i].text
         
         
 

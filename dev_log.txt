@@ -83,3 +83,23 @@ Created Scrap class
 
 19/04/2020
 1) Added README.md file detailing installation instructions
+
+20/04/2020
+1) Updated README.md instructions
+
+21/04/2020
+1) Added contents_internal_tags to Scrap.stats
+2) Removed internal_scrapes
+3) Changed scrap_list to contents
+4) Added function filter_contents
+
+22/04/2020
+1) Added content tags and four layers of embedded tags to stats output in Scrap
+
+23/04/2020
+1) Removed all content_tags and layer_tags.
+    a) Added scrape_embedded_elements method to Scrap
+        - This allows the user to scrap n layers within the Scrap's contents
+    b) Added embedded_scrapes method to Scrap
+        - This allows the user to display the scrapes or tags of an embedded layer
+        - This allows the user to specify which tags that want to include otherwise all elements will be returned
