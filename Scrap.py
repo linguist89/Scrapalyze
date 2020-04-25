@@ -7,10 +7,11 @@ class Scrap:
     """
     
     # Initializes the scrap with the list scraped from the Scrapalyze class
-    def __init__(self, contents):
+    def __init__(self, contents, fast):
         self.contents = contents
-        self.scrape_embedded_elements()
-        self.num_layers = self.number_of_embedded_layers()
+        self.fast = fast
+        if fast == False:
+            self.slow_scrape_embedded_layers()
     
     # Display standard statistics for the Scrap
     @property
@@ -21,8 +22,9 @@ class Scrap:
         # Length of contents
         print("Contents length is: {}".format(len(self.contents)))   
         
-        # Number of embedded layers
-        print("The number of embedded layers is: {}".format(self.num_layers))
+        if self.fast == False:
+            # Number of embedded layers
+            print("The number of embedded layers is: {}".format(self.num_layers))
         
     
     # Display the article as it was scraped
@@ -48,14 +50,21 @@ class Scrap:
         tag_list = sorted(list(set(tag_list)))
         return tag_list
     
-    # Determine the number of layers embedded elements in the contents
-    def number_of_embedded_layers(self):
+    # Scrape elements and tags from each layer of embedded HTML
+    def slow_scrape_embedded_layers(self):
+        """
+        This method will executed automatically on initialization if the fast argument is set to False.
+        """
         i = 1
-        end = 1
-        while i == end:
-            end = self.scrape_embedded_elements(layer=i)[2]
+        self.embedded_layers = {}
+        layer_elements = []
+        while not isinstance(layer_elements, str):
+            layer_tags = self.scrape_embedded_elements(layer=i)[0]
+            layer_elements = self.scrape_embedded_elements(layer=i)[1]
+            self.num_layers = self.scrape_embedded_elements(layer=i)[2]
+            self.embedded_layers[i] = (layer_tags,layer_elements)
+            print(i)
             i += 1
-        return end
             
     # Scrap tags based upon their layers of embedding
     def scrape_embedded_elements(self, 

@@ -103,3 +103,11 @@ Created Scrap class
     b) Added embedded_scrapes method to Scrap
         - This allows the user to display the scrapes or tags of an embedded layer
         - This allows the user to specify which tags that want to include otherwise all elements will be returned
+        
+24/04/2020
+1) Fixed that loop that outputs the number of embedded layers in the Scrap's stats method
+
+25/04/2020
+1) Added fast variable to help the speed when the user doesn't want all the scrapes saved in the Scrap.
+2) Added the slow_scrape_elements method
+3) Added the embedded layers dictionary

@@ -8,8 +8,9 @@ nltk.download('punkt')
 import Scrap
 
 class Scrapalyze:
-    def __init__(self, url):
+    def __init__(self, url, fast=True):
         self.url = url
+        self.fast = fast
         self.get_soup(url)
         self.get_tag_list()
         
@@ -62,10 +63,10 @@ class Scrapalyze:
         if kwargs['element']:
             if kwargs['attribute_type']:
                 find_object = self.soup.findAll(kwargs['element'],attrs={kwargs['attribute_type']:kwargs['attribute_content']})
-                return Scrap.Scrap(find_object)
+                return Scrap.Scrap(find_object, self.fast)
             else:
                 find_object = self.soup.findAll(kwargs['element'])
-                return Scrap.Scrap(find_object)
+                return Scrap.Scrap(find_object, self.fast)
         else:
             return self.soup
 
