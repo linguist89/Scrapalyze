@@ -111,3 +111,8 @@ Created Scrap class
 1) Added fast variable to help the speed when the user doesn't want all the scrapes saved in the Scrap.
 2) Added the slow_scrape_elements method
 3) Added the embedded layers dictionary
+
+26/04/2020
+1) Changed embedded_layers method to filter_embedded_layers
+    a) Time to display depends on whether a slow or fast scrape was done when initialising the Scrapalyze object.
+2) Removed internal_tags property and filter_contents in Scrap

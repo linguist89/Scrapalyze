@@ -34,21 +34,6 @@ class Scrap:
         """
         for entry in self.contents:
             print(entry)
-            
-    # Display all the tags within the scraped tag
-    @property
-    def internal_tags(self):       
-        """
-        Internal tags is a property function that outputs the name of the tags within the element that you scraped.
-        Use internal_scrape to further refine your scrapes.
-        """
-        tag_list = []
-        for element in self.contents:
-            for token in element:
-                if not isinstance(token, str):
-                    tag_list.append(token.name)
-        tag_list = sorted(list(set(tag_list)))
-        return tag_list
     
     # Scrape elements and tags from each layer of embedded HTML
     def slow_scrape_embedded_layers(self):
@@ -94,52 +79,44 @@ class Scrap:
         return layer_tags,layer_elements,end
     
     # Print the scraped embedded elements
-    def embedded_scrapes(self, 
-                         layer=1, 
-                         specify=[],
-                         tags_elements=1):
+    def filter_embedded_layers(self, 
+                               layer=1, 
+                               specify=[],
+                               tags_elements=1):
         """
         Returns the elements or tags of an embedded layer.
         layer: default 1. Displays the first layer of elements. 
         Each increment represents 1 layer i.e. 3 is the third layer of embedded elements.
         specify: default empyt list. Add any HTML tags in the list to display only those elements.
         tags_elements: default 1. Change to 0 if you want to return tags instead of full elements.
-        """        
-        scrape_results = []
-        if not isinstance(self.scrape_embedded_elements(layer=layer)[tags_elements], str):
-            for element in self.scrape_embedded_elements(layer=layer)[tags_elements]:
-                if specify != []:
-                    for s in specify:
-                        if element.name == s:
-                            scrape_results.append(element)
-                else:
-                    scrape_results.append(element)
-            return scrape_results
+        """    
+        if self.fast == True:
+            scrape_results = []
+            if not isinstance(self.scrape_embedded_elements(layer=layer)[tags_elements], str):
+                for element in self.scrape_embedded_elements(layer=layer)[tags_elements]:
+                    if specify != []:
+                        for s in specify:
+                            if element.name == s:
+                                scrape_results.append(element)
+                    else:
+                        scrape_results.append(element)
+                return scrape_results
+            else:
+                return self.scrape_embedded_elements(layer=layer)[tags_elements]
         else:
-            return self.scrape_embedded_elements(layer=layer)[tags_elements]
-                                        
-        
-    
-    # Filter out any unwanted elements in the contents
-    def filter_contents(self,
-                        exclude=[],
-                       permanent=False):
-        """
-        This contains the contents of the initial scrape.
-        permanent: default False. Set to true to make the changes permanent.
-        """
-        if exclude:
-            for token in self.contents:
-                for child in token.children:
-                    for e in exclude:
-                        if child.name != e and child.name != None:
-                            print(child.name)
-                            print(e)
-                            print("========")
-        else:
-            return self.contents
-        
-            
+            scrape_results = []
+            if not isinstance(self.embedded_layers[layer][tags_elements], str):
+                for element in self.embedded_layers[layer][tags_elements]:
+                    if specify != []:
+                        for s in specify:
+                            if element.name == s:
+                                scrape_results.append(element)
+                    else:
+                        scrape_results.append(element)
+                return scrape_results
+            else:
+                return self.embedded_layers[layer][tags_elements]         
+                                    
     
     # Removes a single newline character from the string
     def clean(self, 
