@@ -1,4 +1,4 @@
-import nltk
+from IPython.display import clear_output
 
 # A Scrap is an object from a Scrapalyze method
 class Scrap:
@@ -7,11 +7,13 @@ class Scrap:
     """
     
     # Initializes the scrap with the list scraped from the Scrapalyze class
-    def __init__(self, contents, fast):
+    def __init__(self, contents, fast, show_stats):
         self.contents = contents
         self.fast = fast
         if fast == False:
             self.slow_scrape_embedded_layers()
+        if show_stats == True:
+            self.stats
     
     # Display standard statistics for the Scrap
     @property
@@ -20,7 +22,8 @@ class Scrap:
         Stats is a property fuction that outputs statistics about the element you scraped.
         """
         # Length of contents
-        print("Contents length is: {}".format(len(self.contents)))   
+        
+        print("Scrap contains {} HTML elements.".format(len(self.contents[0])))   
         
         if self.fast == False:
             # Number of embedded layers
@@ -48,8 +51,10 @@ class Scrap:
             layer_elements = self.scrape_embedded_elements(layer=i)[1]
             self.num_layers = self.scrape_embedded_elements(layer=i)[2]
             self.embedded_layers[i] = (layer_tags,layer_elements)
-            print(i)
+            print("Please be patient, loading layer: {}".format(i))
+            clear_output(wait=True)
             i += 1
+        self.num_layers += 1
             
     # Scrap tags based upon their layers of embedding
     def scrape_embedded_elements(self, 
