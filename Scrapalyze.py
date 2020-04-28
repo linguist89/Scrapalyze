@@ -3,6 +3,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options 
+import re
 import nltk
 nltk.download('punkt')
 import Scrap
@@ -99,7 +100,8 @@ class Scrapalyze:
 
     # Scrape all the links from a page based upon specified criteria
     def scrape_links(self, 
-                     filter_links=[]):
+                     filter_links=[],
+                     regex=False):
         """
         Scrape all the links from the website.
         filter_links: default empty list. Add any string to the list to only return websites that contain that string.
@@ -108,12 +110,21 @@ class Scrapalyze:
         links_list = [link.get('href') for link in links_list]
         if filter_links == []:            
             return links_list
-        else:
+        elif regex == False:
             filtered_links = []
             for link in links_list:
                 for fl in filter_links:
                     if link != None:
                         if fl.lower() in link.lower():
+                            filtered_links.append(link)
+            return filtered_links
+        elif regex == True:
+            filtered_links = []
+            for link in links_list:
+                for fl in filter_links:
+                    if link != None:
+                        x = re.search(fl, link)
+                        if x:
                             filtered_links.append(link)
             return filtered_links
 

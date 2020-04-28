@@ -126,3 +126,4 @@ Created Scrap class
 1) Added scrape_links method to Scrapalyze
     a) This scrapes all the links on a website.
     b) The method has an argument that filters links based upon the strings you enter.
+    c) Added filter by means of regular expression via regex=True argument.
