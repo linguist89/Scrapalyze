@@ -121,3 +121,8 @@ Created Scrap class
 1) Added show_stats argument to Scrapalyze initialization
     a) This will show stats of the scrape upon initialization, making it easier for the user to see what's available.
 2) Changed the output of length of contents to display "Scrap contains n HTML elements."
+
+28/04/2020
+1) Added scrape_links method to Scrapalyze
+    a) This scrapes all the links on a website.
+    b) The method has an argument that filters links based upon the strings you enter.

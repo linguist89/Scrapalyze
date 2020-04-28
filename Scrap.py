@@ -14,6 +14,8 @@ class Scrap:
             self.slow_scrape_embedded_layers()
         if show_stats == True:
             self.stats
+            
+             
     
     # Display standard statistics for the Scrap
     @property

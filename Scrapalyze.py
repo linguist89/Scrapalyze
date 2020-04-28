@@ -98,41 +98,24 @@ class Scrapalyze:
 
 
     # Scrape all the links from a page based upon specified criteria
-    def scrape_links(self, **kwargs):
+    def scrape_links(self, 
+                     filter_links=[]):
         """
-        Scrapes self.url and returns all the links on that website.
-        Keyword arguments can be passed to specify which part of the website should be scraped
-        for urls. The results will be contained in a list.
-
-        **kwargs:
-        element: change to whichever element you are searching for in the soup.
-
-        attribute_type: change to whichever attribute_type you are searching for in the soup.
-
-        attribute_content: change to whichever attribute_content you are searching for in the soup.
+        Scrape all the links from the website.
+        filter_links: default empty list. Add any string to the list to only return websites that contain that string.
         """
-        # Set the kwargs defaults to empty strings (so that they can pass the logic tests if the user doesn't enter values)
-        kwargs.setdefault('element',"")
-        kwargs.setdefault('attribute_type',"")
-        kwargs.setdefault('attribute_content',"")
-
-        # Get links to specific elements on a page
-        # If left blank then it will scrape all the links from that page
-        if kwargs['element'] and kwargs['attribute_type']:
-            element = scrape_element(self.url, 
-                                     element=kwargs['element'], 
-                                     attribute_type=kwargs['attribute_type'],
-                                     attribute_conent=kwargs['attribute_content'])
-        elif kwargs['element']:
-            element = scrape_element(self.url, element=kwargs['element'])
+        links_list = self.soup.findAll('a')
+        links_list = [link.get('href') for link in links_list]
+        if filter_links == []:            
+            return links_list
         else:
-            element = scrape_element(self.url)
-        try:
-            links_list = element.findAll('a')
-            links_list = [link.get('href') for link in links_list]
-        except:
-            links_list = "There was an error."
-        return links_list
+            filtered_links = []
+            for link in links_list:
+                for fl in filter_links:
+                    if link != None:
+                        if fl.lower() in link.lower():
+                            filtered_links.append(link)
+            return filtered_links
 
     # Remotely enter input into a search box or click a link then scrape the resulting page.
     def scrape_selenium_css(self, **kwargs):
