@@ -35,16 +35,26 @@ Scrapalyze scrapes the entire HTML of a website using BeautifulSoup. The class i
 
 sc = Scrapalyze.Scrapalyze("https://github.com/", fast=True, show_stats=True)
 
-Scrapalyze arguments:
-fast: boolean (default is True). Set this to False if you want to investigate how the site is scraped. If you already know which elements you want to scrape then set it to True.
-show_stats: boolean (default is True). This will display rough statistics when scraping specific elements i.e. how many HTML elements are in the Scrap, how many layers are in the HTML tree, etc. Set this to False if you don't need to see the stats.
+Scrapalyze arguments:  
+fast: boolean (default is True). Set this to False if you want to investigate how the site is scraped. If you already know which elements you want to scrape then set it to True.  
+show_stats: boolean (default is True). This will display rough statistics when scraping specific elements i.e. how many HTML elements are in the Scrap, how many layers are in the HTML tree, etc. Set this to False if you don't need to see the stats.  
 
 
-
-### You can view which element tags are available on the website which can be used for scraping by element 
-### It would benefit you to know some HTML in order to find which elements you want to scrape.
+### Finding what to scrape - tag_list
+You can view which element tags are present on the website that can be used for scraping by element. It would benefit you to know some HTML in order to find which elements you want to scrape, but mainly just looking at the HTML code of the website and finding the element will be sufficient. The tag_list simply makes navigation easier.  
 
 tags = sc.tag_list  
+
+### Scraping links from the initial website
+If you want to scrape the links from the website use the scrape_links method (see the example below). This method contains parameters that filter which websites it will return.  
+
+sc.scrape_links(filter_links=['github']) # This will scrape will links that contain with word 'github'  
+
+You can also use regular expression by changing the regex parameter to True.  
+
+sc.scrape_links(filter_links=['^https'], regex=True) # This will scrape only links that begin with 'https'  
+
+
 
 # Scrapalayze class object (Scrap)
 
