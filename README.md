@@ -58,7 +58,31 @@ sc.scrape_links(filter_links=['^https'], regex=True) # This will scrape only lin
 
 # Scrapalayze class object (Scrap)
 
-### The Scrap internal methods have been altered, but an updated README is coming soon...
+Scraps are class objects that are instantiated from the results of a Scrapalyze method. They methods that for filtering, formatting and analyzing the data passed in as arguments (this is called the Scrap's contents). Following is an example of creating an instance of a Scrap class:  
+
+article = sc.scrape_by_element(element='article')
+
+
+
+### Displaying the stats of a Scrap and displaying the contents
+The stats property displays the number of HTML elements inside the Scrap's contents. If Scrap was instantiated with fast=False then it will also display the number of layers present in the Scrap's contents.
+
+article.stats # This will display the stats
+article.contents # The output of this is a list
+
+## Scraping embedded layers
+The embedded layers in a Scrap object refers to the structure of an HTML document's tree layout. Each layer would be equivalent to a subdirectory or branch within the HTML document layout.  
+
+### Slow scrape
+Slow scraping simply means that the method will scrape all the layers of the Scrap's contents. This method is automatically called when the Scrap class is instantiated with the fast parameter set to False. It can however be manually called if the need arises.  
+
+article.slow_scrape_embedded_layers()  
+
+The results are contained in a dictionary. The layer number is the key and the value is a tuple: first element is a list of the tags in the layer and the second element are all the BeautilSoup elements in the layer. The following is an example:  
+
+first_layer_elements = article.embedded_layers[1][1] # This will be a list of BeautfilSoup elements
+
+
 
 
 

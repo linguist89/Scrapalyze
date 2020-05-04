@@ -29,16 +29,7 @@ class Scrap:
         
         if self.fast == False:
             # Number of embedded layers
-            print("The number of embedded layers is: {}".format(self.num_layers))
-        
-    
-    # Display the article as it was scraped
-    def raw(self):
-        """
-        Display prints each entry in the contents.
-        """
-        for entry in self.contents:
-            print(entry)
+            print("Number of embedded layers: {}".format(self.num_layers))
     
     # Scrape elements and tags from each layer of embedded HTML
     def slow_scrape_embedded_layers(self):
@@ -57,6 +48,8 @@ class Scrap:
             clear_output(wait=True)
             i += 1
         self.num_layers += 1
+        clear_output(wait=True)
+        print("Process is complete. Number of layers: {}".format(self.num_layers))
             
     # Scrap tags based upon their layers of embedding
     def scrape_embedded_elements(self, 
