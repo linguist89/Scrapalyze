@@ -78,10 +78,16 @@ Slow scraping simply means that the method will scrape all the layers of the Scr
 
 article.slow_scrape_embedded_layers()  
 
-The results are contained in a dictionary. The layer number is the key and the value is a tuple: first element is a list of the tags in the layer and the second element are all the BeautilSoup elements in the layer. The following is an example:  
+The results are contained in a dictionary. The layer number is the key and the value is a tuple: first element is a list of the tags in the layer and the second element are all the BeautifulSoup elements in the layer. The following is an example:  
 
 first_layer_elements = article.embedded_layers[1][1] # This will be a list of BeautfilSoup elements
 
+### Filter embedded layers
+It's useful to have a section of HTML scraped, but for most projects the internal elements of that section need to be further filtered. A Scrap method called filter_embedded_layers can help with this task. The result is a list of BeautifulSoup elements. Here are some examples:
+
+article.filter_embedded_layers(layer=3, specify=['p']) # This will scrape all the p elements from layer 3
+
+article.filter_embedded_layers(layer=3, specify=['h1'])[0].text # This will display the text of the first h1 element in layer 3
 
 
 
