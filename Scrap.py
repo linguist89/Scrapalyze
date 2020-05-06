@@ -109,7 +109,7 @@ class Scrap:
                 for element in self.embedded_layers[layer][tags_elements]:
                     if specify != []:
                         for s in specify:
-                            if element.name == s:
+                            if element == s:
                                 scrape_results.append(element)
                     else:
                         scrape_results.append(element)

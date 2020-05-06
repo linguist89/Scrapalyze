@@ -89,6 +89,8 @@ article.filter_embedded_layers(layer=3, specify=['p']) # This will scrape all th
 
 article.filter_embedded_layers(layer=3, specify=['h1'])[0].text # This will display the text of the first h1 element in layer 3
 
+The tags_elements parameter determines whether or not only elements or tags will be displayed. Set this parameter to 0 for tags (default is 1 for elements). Here is an example:  
 
+article.filter_embedded_layers(layer=3, tags_elements=0) # Return all the tags in layer 3
 
 
