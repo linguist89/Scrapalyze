@@ -1,4 +1,5 @@
 from IPython.display import clear_output
+from Analyze import *
 
 # A Scrap is an object from a Scrapalyze method
 class Scrap:
@@ -96,56 +97,41 @@ class Scrap:
                 for element in self.scrape_embedded_elements(layer=layer)[tags_elements]:
                     if specify != []:
                         for s in specify:
-                            if element.name == s:
-                                scrape_results.append(element)
+                            if tags_elements == 1:
+                                if element.name == s:
+                                    scrape_results.append(element)
+                            elif tags_elements == 0:
+                                if element == s:
+                                    scrape_results.append(element)
                     else:
                         scrape_results.append(element)
-                return scrape_results
+                return analyze(scrape_results)
+                #return scrape_results
             else:
-                return self.scrape_embedded_elements(layer=layer)[tags_elements]
+                return analyze(self.scrape_embedded_elements(layer=layer)[tags_elements])
+                #return self.scrape_embedded_elements(layer=layer)[tags_elements]
         else:
             scrape_results = []
             if not isinstance(self.embedded_layers[layer][tags_elements], str):
                 for element in self.embedded_layers[layer][tags_elements]:
                     if specify != []:
                         for s in specify:
-                            if element == s:
-                                scrape_results.append(element)
+                            if tags_elements == 1:
+                                if element.name == s:
+                                    scrape_results.append(element)
+                            elif tags_elements == 0:
+                                if element == s:
+                                    scrape_results.append(element)
                     else:
                         scrape_results.append(element)
-                return scrape_results
+                return analyze(scrape_results)
+                #return scrape_results
             else:
-                return self.embedded_layers[layer][tags_elements]         
+                return analyze(self.embedded_layers[layer][tags_elements])
+                #return self.embedded_layers[layer][tags_elements]
                                     
     
-    # Removes a single newline character from the string
-    def clean(self, 
-              i=0,
-             remove_punct=False,
-             tokenize=False,
-             lower=False):
-        """
-        remove_punct: default False. If set to True, removes punctuation from the text of the scraped element. 
-        tokenize: default False. If set to True, returns the text as a list of tokens.
-        lower: default False. If set to True, returns the tokens all in lower case.
-        If set to false, ouputs only the text of the element without any formatting.
-        """
-        # Remove punctuation from contents element's text
-        if remove_punct == True:
-            words = nltk.word_tokenize(self.contents[i].text)
-            if tokenize == True:
-                if lower == True:
-                    new_words = [word.lower() for word in words if word.isalnum()]
-                else:                  
-                    new_words = [word for word in words if word.isalnum()]
-            else:
-                if lower == True:
-                    new_words = ' '.join([word.lower() for word in words if word.isalnum()])
-                else:                  
-                    new_words = ' '.join([word for word in words if word.isalnum()])                
-            return new_words
-        else:
-            return self.contents[i].text
+    
         
         
 

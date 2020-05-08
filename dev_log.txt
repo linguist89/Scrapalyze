@@ -127,3 +127,10 @@ Created Scrap class
     a) This scrapes all the links on a website.
     b) The method has an argument that filters links based upon the strings you enter.
     c) Added filter by means of regular expression via regex=True argument.
+    
+07/05/2020
+1) Added Analyze.py
+
+08/05/2020
+1) Fixed the print_all method in Analyze
+    a) This will now print the elements in a similar format to how they appear on the website.
