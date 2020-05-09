@@ -134,3 +134,7 @@ Created Scrap class
 08/05/2020
 1) Fixed the print_all method in Analyze
     a) This will now print the elements in a similar format to how they appear on the website.
+    
+09/05/2020
+1) Created token method for Analyze
+    a) This will create a 2-d array of all tokens in a body of text.

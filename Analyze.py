@@ -16,33 +16,20 @@ class analyze:
                 print(element.text.strip())
             else:
                 print(element.strip())
-            
-            
-    # Removes a single newline character from the string
-    def clean(self,
-              internal_contents,
-             remove_punct=False,
-             tokenize=False,
-             lower=False):
+                
+    def tokenize(self,
+                 vocab=False):
         """
-        remove_punct: default False. If set to True, removes punctuation from the text of the scraped element. 
-        tokenize: default False. If set to True, returns the text as a list of tokens.
-        lower: default False. If set to True, returns the tokens all in lower case.
-        If set to false, ouputs only the text of the element without any formatting.
+        Tokenizes the contents and outputs as a 2-d list with each sentence a list of tokens.
+        vocab (default False): set to True to get a list of all vocab items.
         """
-        # Remove punctuation from contents element's text
-        if remove_punct == True:
-            words = nltk.word_tokenize(internal_contents)
-            if tokenize == True:
-                if lower == True:
-                    new_words = [word.lower() for word in words if word.isalnum()]
-                else:                  
-                    new_words = [word for word in words if word.isalnum()]
+        tokens_list = []
+        for element in self.contents:
+            if not isinstance(element,str):
+                tokens_list.append(element.text.split())
             else:
-                if lower == True:
-                    new_words = ' '.join([word.lower() for word in words if word.isalnum()])
-                else:                  
-                    new_words = ' '.join([word for word in words if word.isalnum()])                
-            return new_words
-        else:
-            return internal_contents
+                tokens_list.append(element.split())
+        if vocab == False:
+            return [l for l in tokens_list if l]
+        elif vocab == True:
+            return list(set([subl for l in tokens_list for subl in l]))
