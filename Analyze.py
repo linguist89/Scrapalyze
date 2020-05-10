@@ -1,4 +1,4 @@
-import nltk
+import string
 
 class analyze:
     
@@ -18,7 +18,8 @@ class analyze:
                 print(element.strip())
                 
     def tokenize(self,
-                 vocab=False):
+                 vocab=False,
+                 remove_punctuation=True):
         """
         Tokenizes the contents and outputs as a 2-d list with each sentence a list of tokens.
         vocab (default False): set to True to get a list of all vocab items.
@@ -30,6 +31,34 @@ class analyze:
             else:
                 tokens_list.append(element.split())
         if vocab == False:
-            return [l for l in tokens_list if l]
+            tokenized_contents = [l for l in tokens_list if l]
         elif vocab == True:
-            return list(set([subl for l in tokens_list for subl in l]))
+            tokenized_contents = list(set([subl for l in tokens_list for subl in l]))
+        if remove_punctuation == True:
+            tokenized_contents = self.remove_punctuation(tokenized_contents)
+        return tokenized_contents
+        
+    def remove_punctuation(self,
+                           temp_contents):
+        """
+        Removes all the punctuation from a string or a list.
+        """
+        if isinstance(temp_contents, str):
+            filtered_content = ""
+            for char in temp_contents:
+                if char not in string.puntuation:
+                    filtered_content += char
+            return filtered_content
+        elif isinstance(temp_contents, list):
+            filtered_list = []
+            for e in temp_contents:
+                temp_string = ""
+                for char in e:
+                    if char not in string.punctuation:
+                        temp_string += char
+                filtered_list.append(temp_string)
+            return filtered_list
+            
+        
+        
+        

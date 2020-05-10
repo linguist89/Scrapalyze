@@ -138,3 +138,6 @@ Created Scrap class
 09/05/2020
 1) Created token method for Analyze
     a) This will create a 2-d array of all tokens in a body of text.
+    
+10/05/2020
+1) Added remove_punctuation method to Analyze
