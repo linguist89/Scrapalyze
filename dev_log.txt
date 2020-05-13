@@ -141,3 +141,10 @@ Created Scrap class
     
 10/05/2020
 1) Added remove_punctuation method to Analyze
+
+11/05/2020
+1) Added remove_punctuation parameter to print_all method in Analyze
+
+13/05/2020
+1) Added remove_stopwords method to Analyze
+    a) Added remove_stopwords parameter to the tokenize method in Analyze.
