@@ -33,7 +33,7 @@ The base scrapalyze class will contain the raw HTML of the website along with me
 ### Scrapalyze class instantiation
 Scrapalyze scrapes the entire HTML of a website using BeautifulSoup. The class instance, in this case "sc", has class methods which are used to further scrape elements in a more specific way. The results of these scrapes are elements in themselves (they are individually called "Scrap") and have their own internal methods.
 
-sc = Scrapalyze.Scrapalyze("https://github.com/", fast=True, show_stats=True)
+sc = Scrapalyze.Scrapalyze("https://en.wikipedia.org/wiki/Python_(programming_language)", fast=True, show_stats=True)
 
 Scrapalyze arguments:  
 fast: boolean (default is True). Set this to False if you want to investigate how the site is scraped. If you already know which elements you want to scrape then set it to True.  
@@ -92,5 +92,51 @@ article.filter_embedded_layers(layer=3, specify=['h1'])[0].text # This will disp
 The tags_elements parameter determines whether or not only elements or tags will be displayed. Set this parameter to 0 for tags (default is 1 for elements). Here is an example:  
 
 article.filter_embedded_layers(layer=3, tags_elements=0) # Return all the tags in layer 3
+
+
+# Analyze class object
+
+Analyze objects will allow you to format that text that you have scraped. You can create vocabulary lists, tokeniz sentences, remove punctuation and remove stopwords. You also have the option of adding your own custom stopword lists or using the default list which comes to from the NLTK package. Following are a few examples to show how to use the Analyze methods.
+
+
+### print_all method
+This method simply displays the contents in a readable manner. It has several parameters that can be adjusted to change the content output. Here are some examples:
+
+#Assign extracted contents to a variable
+article_contents = article.filter_embedded_layers(layer=3, tags_elements=1) 
+
+#Print the contents without punctuation
+article_contents.print_all(remove_punctuation=True)
+
+#Print the contents without punctuation, but with the characters all lowercased.
+article_contents.print_all(remove_punctuation=True, 
+                           make_lowercase=True)     
+               
+#Print the contents without any stopwords.
+article_contents.print_all(remove_stopwords=True)
+
+#Make additions to the currently available stopword list.
+edit_list = ['Python']
+article_contents.print_all(remove_stopwords=True,
+                           sw='edit',
+                           custom_stopwords=edit_list)
+                  
+#Add your own custom stopword list which replaces the current stopword list.
+new_list = ['a','the','I']
+article_contents.print_all(remove_stopwords=True,
+                           sw='new',
+                           custom_stopwords=new_list)
+
+
+
+
+
+
+
+
+
+
+
+
 
 

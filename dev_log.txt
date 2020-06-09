@@ -148,3 +148,43 @@ Created Scrap class
 13/05/2020
 1) Added remove_stopwords method to Analyze
     a) Added remove_stopwords parameter to the tokenize method in Analyze.
+    
+14/05/2020
+1) Added remove_stopwords parameter to print_all method in Analyze
+
+15/05/2020
+1) Added sw and custom_stopwords parameters to remove_stopwords
+
+16/05/2020
+1) Fixed the remove_punctuation parameter error in the tokenize method
+
+17/05/2020
+1) Fixed remove_stopwords parameter in the tokenize method
+
+18/05/2020
+1) Fixed the problem of displaying the tokenized sentences i.e. 2d lists
+
+19/05/2020
+1) Fixed the problem of the remove_stopwords displaying incorrectly in the tokenize method
+
+21/05/2020
+1) Added make_lowercase to Analyze method
+    a) Added make_lowercase parameter to print_all and tokenize methods. 
+    
+22/05/2020
+1) Fixed tokenize method
+
+23/05/2020
+1) Added vocab_count parameter to tokenize method
+
+25/05/2020
+1) Added print_all explanations to the README.md
+
+27/05/2020
+1) Identified the NoneType error problem in Analyze
+
+08/06/2020
+1) Fixed tags_elements output problem when parameter is set to 0
+
+09/06/2020
+1) Fixed "there are no more layers" message

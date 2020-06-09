@@ -25,9 +25,11 @@ class Scrap:
         Stats is a property fuction that outputs statistics about the element you scraped.
         """
         # Length of contents
-        
-        print("Scrap contains {} HTML elements.".format(len(self.contents[0])))   
-        
+        try:
+            print("Scrap contains {} HTML elements.".format(len(self.contents[0])))   
+        except:
+            print("The element you have tried to scrape does not exist.")
+            
         if self.fast == False:
             # Number of embedded layers
             print("Number of embedded layers: {}".format(self.num_layers))
