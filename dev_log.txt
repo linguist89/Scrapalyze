@@ -188,3 +188,5 @@ Created Scrap class
 
 09/06/2020
 1) Fixed "there are no more layers" message
+
+=================Scrapalyze_v2 has been started.=====================================

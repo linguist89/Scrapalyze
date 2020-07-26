@@ -1,0 +1,4 @@
+26/07/2020
+1) Created scrapalyze_v2 which is a much simplier version of Scrapalyze.
+2) Scrap module created.
+3) Tokenized method created.
