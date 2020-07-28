@@ -1,8 +1,15 @@
+28/07/2020
+1) Created a save function for bigrams.
+    1) CSV and JSON are supported.
+2) Created a print_text method which prints only the text of the scrap's contents.
+    a) This can be filtered based upon the element_tag.
+    b) This can also be filtered based upon the list length.
+
 27/07/2020
-1) Created a wordlist method
-    a) Contains a parameter that outputs a tuple (counted, sorted) or a list (uncounted, unsorted)
-2) Created a bigramer method
-    a) Contains a parameter that outputs a tuple (counted, sorted) or a list (uncounted, unsorted)
+1) Created a wordlist method.
+    a) Contains a parameter that outputs a tuple (counted, sorted) or a list (uncounted, unsorted).
+2) Created a bigramer method.
+    a) Contains a parameter that outputs a tuple (counted, sorted) or a list (uncounted, unsorted).
 
 26/07/2020
 1) Created scrapalyze_v2 which is a much simplier version of Scrapalyze.

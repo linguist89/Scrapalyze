@@ -1,4 +1,5 @@
 from collections import Counter
+import pandas as pd
 from gensim.models.phrases import Phrases, Phraser
 
 # A Scrap is an object from a Scrapalyze method
@@ -10,6 +11,12 @@ class Scrap:
     # Initializes the scrap with the content scraped in the Scrapalze module
     def __init__(self, contents):
         self.contents = contents
+        
+    def contents_text(self,
+                      element_tag='p',
+                      filter_contents=(0,None)):
+        contents_text = ' '.join([element_tag.text for element_tag in self.contents[filter_contents[0]:filter_contents[1]]])
+        return contents_text
         
     def tokenize(self,
                  output_type='string'):
@@ -132,6 +139,7 @@ class Scrap:
                                for sentence in edited_contents]
             edited_contents = [[word for word in sentence.split() if word not in extended_stopwords]
                                for sentence in edited_contents]
+
         return edited_contents
     
     def vocabulary_list(self,
@@ -147,7 +155,8 @@ class Scrap:
            
     
     def bigrams(self,
-               with_count = True):
+               with_count = True,
+               save=''):
         sentences = self.tokenize(output_type='tokenized_list')
         bigram = Phrases(sentences, min_count=1, delimiter=b' ')
         bigram_list = [p[0].decode("utf-8") for p in bigram.export_phrases(sentences)]
@@ -156,9 +165,30 @@ class Scrap:
             bigram_list = sorted(Counter(bigram_list).items(), 
                                  key=lambda x: x[1], 
                                  reverse=True)
-            return bigram_list
+            if save == '':
+                return bigram_list
+            elif save == 'csv':
+                df = pd.DataFrame(bigram_list, columns=['Bigram','Count'])
+                df.to_csv('bigram_list.csv')
+                return df
+            elif save == 'json':
+                df = pd.DataFrame(bigram_list, columns=['Bigram','Count'])
+                df.to_json('bigram_list.json')
+                return df
         else:
-            return bigram_list
+            if save == '':
+                return bigram_list
+            elif save == 'csv':
+                df = pd.DataFrame(bigram_list, columns=['Bigram'])
+                df.to_csv('bigram_list.csv')
+                return df
+            elif save == 'json':
+                df = pd.DataFrame(bigram_list, columns=['Bigram'])
+                df.to_json('bigram_list.json')
+                return df
+        
+        
+        
     
     
     
